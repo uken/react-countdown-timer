@@ -3,7 +3,7 @@ react-countdown-timer
 
 A timer component for React that counts down to zero for a specified number of milliseconds.
 
- *props*
+ **props**
  
  `initialTimeRemaining: Number`
  The time remaining for the countdown (in ms).

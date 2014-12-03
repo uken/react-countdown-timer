@@ -1,0 +1,20 @@
+{
+  "name": "react-countdown-timer",
+  "version": "1.0.1",
+  "description": "A timer component for React that counts down to zero for a specified number of milliseconds.",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uken/react-countdown-timer"
+  },
+  "keywords": [
+    "react-component"
+  ],
+  "author": "Robin Vierich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uken/react-countdown-timer/issues"
+  },
+  "homepage": "https://github.com/uken/react-countdown-timer"
+}

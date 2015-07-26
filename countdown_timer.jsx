@@ -128,3 +128,5 @@ var CountdownTimer = React.createClass({
     );
   }
 });
+
+module.exports = CountdownTimer;

@@ -2,7 +2,7 @@
   "name": "react-countdown-timer",
   "version": "1.0.3",
   "description": "A timer component for React that counts down to zero for a specified number of milliseconds.",
-  "main": "countdown_timer.js",
+  "main": "countdown_timer.jsx",
   "scripts": {},
   "repository": {
     "type": "git",

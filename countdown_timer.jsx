@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+var React = require('react');
+
 // Generic Countdown Timer UI component
 //
 // props:
@@ -128,3 +130,5 @@ var CountdownTimer = React.createClass({
     );
   }
 });
+
+module.exports = CountdownTimer;

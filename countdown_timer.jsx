@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var React = require('react');
 
 // Generic Countdown Timer UI component
 //
@@ -128,3 +128,5 @@ var CountdownTimer = React.createClass({
     );
   }
 });
+
+module.exports = CountdownTimer;

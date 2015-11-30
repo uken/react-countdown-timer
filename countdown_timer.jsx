@@ -15,6 +15,9 @@ var React = require('react');
 //   - tickCallback(timeRemaining): Function (optional)
 //       A function to call each tick.
 //
+//   - completeCallback(): Function (optional)
+//       A function to call when the countdown completes.
+//
 var CountdownTimer = React.createClass({
 
   propTypes: {

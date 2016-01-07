@@ -16,3 +16,6 @@ A timer component for React that counts down to zero for a specified number of m
 
  `tickCallback(timeRemaining): Function (optional)`
  A function to call each tick.
+
+ `completeCallback(): Function (optional)`
+ A function to call when the countdown completes.

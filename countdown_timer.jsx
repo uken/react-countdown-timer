@@ -2,6 +2,8 @@ var React = require('react');
 
 // Generic Countdown Timer UI component
 //
+// https://github.com/uken/react-countdown-timer
+//
 // props:
 //   - initialTimeRemaining: Number
 //       The time remaining for the countdown (in ms).
@@ -16,6 +18,7 @@ var React = require('react');
 //       A function to call each tick.
 //
 var CountdownTimer = React.createClass({
+  displayName: 'CountdownTimer',
 
   propTypes: {
     initialTimeRemaining: React.PropTypes.number.isRequired,
@@ -28,9 +31,9 @@ var CountdownTimer = React.createClass({
   getDefaultProps: function() {
     return {
       interval: 1000,
-      formatFunc: undefined,
-      tickCallback: undefined,
-      completeCallback: undefined,
+      formatFunc: null,
+      tickCallback: null,
+      completeCallback: null
     };
   },
 
@@ -39,21 +42,21 @@ var CountdownTimer = React.createClass({
     // but these are all initializations (not an anti-pattern).
     return {
       timeRemaining: this.props.initialTimeRemaining,
-      timeoutId: undefined,
-      prevTime: undefined
+      timeoutId: null,
+      prevTime: null
     };
-  },
-
-  componentWillReceiveProps: function(newProps, oldProps) {
-    if (this.state.timeoutId) clearTimeout(this.state.timeoutId);
-    this.setState({ prevTime: undefined, timeRemaining: newProps.initialTimeRemaining });
   },
 
   componentDidMount: function() {
     this.tick();
   },
 
-  componentDidUpdate: function(){
+  componentWillReceiveProps: function(newProps) {
+    if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
+    this.setState({prevTime: null, timeRemaining: newProps.initialTimeRemaining});
+  },
+
+  componentDidUpdate: function() {
     if ((!this.state.prevTime) && this.state.timeRemaining > 0 && this.isMounted()) {
       this.tick();
     }
@@ -64,33 +67,32 @@ var CountdownTimer = React.createClass({
   },
 
   tick: function() {
-
     var currentTime = Date.now();
-    var dt = currentTime - this.state.prevTime || 0;
+    var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0;
     var interval = this.props.interval;
 
     // correct for small variations in actual timeout time
     var timeRemainingInInterval = (interval - (dt % interval));
     var timeout = timeRemainingInInterval;
 
-    if (timeRemainingInInterval < (interval / 2.0)){
+    if (timeRemainingInInterval < (interval / 2.0)) {
       timeout += interval;
     }
 
     var timeRemaining = Math.max(this.state.timeRemaining - dt, 0);
     var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
 
-    if (this.isMounted()){
-      if (this.state.timeoutId) clearTimeout(this.state.timeoutId);
+    if (this.isMounted()) {
+      if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
       this.setState({
-        timeoutId: countdownComplete ? undefined: setTimeout(this.tick, timeout),
+        timeoutId: countdownComplete ? null : setTimeout(this.tick, timeout),
         prevTime: currentTime,
         timeRemaining: timeRemaining
       });
     }
 
     if (countdownComplete) {
-      if (this.props.completeCallback) { this.props.completeCallback() };
+      if (this.props.completeCallback) { this.props.completeCallback(); }
       return;
     }
 
@@ -99,7 +101,6 @@ var CountdownTimer = React.createClass({
     }
   },
 
-
   getFormattedTime: function(milliseconds) {
     if (this.props.formatFunc) {
       return this.props.formatFunc(milliseconds);
@@ -107,9 +108,9 @@ var CountdownTimer = React.createClass({
 
     var totalSeconds = Math.round(milliseconds / 1000);
 
-    var seconds = parseInt(totalSeconds % 60);
-    var minutes = parseInt(totalSeconds / 60) % 60;
-    var hours = parseInt(totalSeconds / 3600);
+    var seconds = parseInt(totalSeconds % 60, 10);
+    var minutes = parseInt(totalSeconds / 60, 10) % 60;
+    var hours = parseInt(totalSeconds / 3600, 10);
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
     minutes = minutes < 10 ? '0' + minutes : minutes;

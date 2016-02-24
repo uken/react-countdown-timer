@@ -4,7 +4,7 @@
   "description": "A timer component for React that counts down to zero for a specified number of milliseconds.",
   "main": "dist/countdown_timer.js",
   "scripts": {
-    "build": "jsx countdown_timer.jsx > dist/countdown_timer.js",
+    "build": "jsx -x jsx ./ dist",
     "prepublish": "npm run build"
   },
   "repository": {
